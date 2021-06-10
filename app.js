@@ -54,14 +54,13 @@ const client = new Client({
 
 client.on('message', msg => {
     var config = {
-        method: 'post',
         url: "https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku",
         headers: {
             'Content-Type': 'application/json'
         },
         data: msg
     };
-    fetch(config)
+    axios.post(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
         })
