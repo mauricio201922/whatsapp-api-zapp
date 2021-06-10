@@ -53,7 +53,22 @@ const client = new Client({
 });
 
 client.on('message', msg => {
-  if (msg.body == '!ping') {
+    var config = {
+        method: 'post',
+        url: "https://sdwhats.tk/api/WhatsWeb/ReceberWhatsWeb",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: msg
+    };
+    await axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  /*if (msg.body == '!ping') {
     msg.reply('pong');
   } else if (msg.body == 'good morning') {
     msg.reply('selamat pagi');
@@ -72,7 +87,7 @@ client.on('message', msg => {
         msg.reply(replyMsg);
       }
     });
-  }
+  }*/
 });
 
 client.initialize();
