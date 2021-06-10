@@ -60,6 +60,7 @@ client.on('message', async msg => {
         },
         data: msg
     };
+    console.log("foi: " + JSON.stringify(msg))
     await axios.post(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
