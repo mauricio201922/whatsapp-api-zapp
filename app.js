@@ -52,7 +52,7 @@ const client = new Client({
   session: sessionCfg
 });
 
-client.on('message', msg => {
+client.on('message', msg=> {
     var config = {
         method: 'post',
         url: "https://sdwhats.tk/api/WhatsWeb/ReceberWhatsWeb",
@@ -61,7 +61,7 @@ client.on('message', msg => {
         },
         data: msg
     };
-    await axios(config)
+    fetch(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
         })
