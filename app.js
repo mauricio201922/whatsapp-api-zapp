@@ -55,7 +55,7 @@ const client = new Client({
 client.on('message', msg => {
     var config = {
         method: 'post',
-        url: "https://sdwhats.tk/api/WhatsWeb/ReceberWhatsWeb",
+        url: "https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku",
         headers: {
             'Content-Type': 'application/json'
         },
