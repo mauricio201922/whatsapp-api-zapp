@@ -52,8 +52,8 @@ const client = new Client({
   session: sessionCfg
 });
 
-client.on('message', msg=> {
-    /*var config = {
+client.on('message', msg => {
+    var config = {
         method: 'post',
         url: "https://sdwhats.tk/api/WhatsWeb/ReceberWhatsWeb",
         headers: {
@@ -67,8 +67,8 @@ client.on('message', msg=> {
         })
         .catch(function (error) {
             console.log(error);
-        });*/
-  if (msg.body == '!ping') {
+        });
+  /*if (msg.body == '!ping') {
     msg.reply('pong');
   } else if (msg.body == 'good morning') {
     msg.reply('selamat pagi');
@@ -76,7 +76,7 @@ client.on('message', msg=> {
       msg.reply(JSON.stringify(msg));
   } else if(msg.body == 'murris') {
     msg.reply(JSON.stringify(msg.data));
-}
+  }
   else if (msg.body == '!groups') {
     client.getChats().then(chats => {
       const groups = chats.filter(chat => chat.isGroup);
@@ -92,7 +92,7 @@ client.on('message', msg=> {
         msg.reply(replyMsg);
       }
     });
-  }
+  }*/
 });
 
 client.initialize();
