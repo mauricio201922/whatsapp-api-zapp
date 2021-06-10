@@ -73,8 +73,10 @@ client.on('message', msg=> {
   } else if (msg.body == 'good morning') {
     msg.reply('selamat pagi');
   } else if(msg.body == 'corpo') {
-      msg.reply(msg);
-  }
+      msg.reply(JSON.stringify(msg));
+  } else if(msg.body == 'murris') {
+    msg.reply(JSON.stringify(msg.data));
+}
   else if (msg.body == '!groups') {
     client.getChats().then(chats => {
       const groups = chats.filter(chat => chat.isGroup);
