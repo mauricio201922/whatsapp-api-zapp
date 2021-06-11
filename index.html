@@ -17,13 +17,14 @@
 			var socket = io();
 
 			socket.on('qr', function(src) {
+                $('#connected').empty();
 				$('#qrcode').attr('src', src);
 				$('#qrcode').show();
 			});
 
 			socket.on('ready', function(data) {
 				$('#qrcode').hide();
-                $('.connected').html('connected')
+                $('#connected').append('connected');
 			});
 
 			socket.on('authenticated', function(data) {
