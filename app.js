@@ -52,7 +52,8 @@ const client = new Client({
   session: sessionCfg
 });
 
-client.on('message', async msg => {
+client.on('message', msg => {
+    console.log("foi: entrou ")
     var config = {
         url: "https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku",
         headers: {
@@ -61,7 +62,7 @@ client.on('message', async msg => {
         data: msg
     };
     console.log("foi: " + JSON.stringify(msg))
-    await axios.post(config)
+    axios.post(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
         })
