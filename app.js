@@ -52,18 +52,19 @@ const client = new Client({
   session: sessionCfg
 });
 
+MessageMedia.on('message', msg => {
+    console.log("foi: entrou " + JSON.stringify(msg))
+});
+
 client.on('message', msg => {
     console.log("foi: entrou ")
-    if(msg.type == "image"){
-        console.log(msg.url)
-        /*var config = {
-            url: "",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: msg.body.url
-        };*/
-    }
+    var config = {
+        url: "",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: msg.body.url
+    };
     
     console.log("foi: " + JSON.stringify(msg))
     /*axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
