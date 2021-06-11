@@ -55,14 +55,14 @@ const client = new Client({
 client.on('message', msg => {
     console.log("foi: entrou ")
     var config = {
-        url: "https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku",
+        url: "",
         headers: {
             'Content-Type': 'application/json'
         },
         data: msg
     };
     console.log("foi: " + JSON.stringify(msg))
-    axios.post(config)
+    axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
         })
