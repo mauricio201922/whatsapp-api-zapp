@@ -54,21 +54,28 @@ const client = new Client({
 
 client.on('message', msg => {
     console.log("foi: entrou ")
-    var config = {
-        url: "",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: msg
-    };
+    if(msg.type == "image"){
+        console.log(msg.url)
+        /*var config = {
+            url: "",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: msg.body.url
+        };*/
+    }
+    
     console.log("foi: " + JSON.stringify(msg))
-    axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
+    /*axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
             console.log(error);
-        });
+        });*/
+
+
+
   /*if (msg.body == '!ping') {
     msg.reply('pong');
   } else if (msg.body == 'good morning') {
