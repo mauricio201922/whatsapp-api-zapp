@@ -1,6 +1,6 @@
 const { Client, MessageMedia } = require('whatsapp-web.js');
 const express = require('express');
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, header } = require('express-validator');
 const socketIO = require('socket.io');
 const qrcode = require('qrcode');
 const http = require('http');
@@ -52,28 +52,35 @@ const client = new Client({
   session: sessionCfg
 });
 
-MessageMedia.on('message', msg => {
-    console.log("foi: entrou " + JSON.stringify(msg))
-});
-
-client.on('message', msg => {
-    console.log("foi: entrou ")
-    var config = {
-        url: "",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: msg.body.url
-    };
-    
-    console.log("foi: " + JSON.stringify(msg))
-    /*axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });*/
+client.on('message', async msg => {
+  if(msg.hasMedia) {
+    const media = await msg.downloadMedia();
+    console.log(media.data);
+    axios.post("https://localhost:44326/Upload/uploadFileWhats", media.data).then(() => {
+      console.log("sucesso!");
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+  console.log("foi: entrou ")
+  /*var config = {
+      url: "",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      data: msg.body.url
+  };*/
+  
+  console.log("foi: " + JSON.stringify(msg))
+  
+  /*axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
+      .then(function (response) {
+          console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+          console.log(error);
+      });*/
 
 
 
