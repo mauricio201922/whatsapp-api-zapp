@@ -62,7 +62,7 @@ client.on('message', async (msg) => {
     formdata.append('file', media.data)
 
     //axios.post("https://localhost:44326/api/Upload/uploadFileWhats", formdata)
-    axios.post("https://f2df675d8006.ngrok.io/api/Upload/uploadFileWhats", formdata)
+    await axios.post("https://f2df675d8006.ngrok.io/api/Upload/uploadFileWhats", formdata)
     
   }
   console.log("foi: entrou ")
