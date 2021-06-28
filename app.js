@@ -8,6 +8,7 @@ const fs = require('fs');
 const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require('express-fileupload');
 const axios = require('axios');
+const FormData = require('form-data');
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -52,16 +53,16 @@ const client = new Client({
   session: sessionCfg
 });
 
-client.on('message', async msg => {
+client.on('message', async (msg) => {
+  //if(msg.id.remote == "status@broadcast")
   if(msg.hasMedia) {
-    const media = await msg.downloadMedia();
-    console.log(media.data);
-    axios.post("https://localhost:44326/Upload/uploadFileWhats", media.data).then(() => {
-      console.log("sucesso!");
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    const media = await msg.downloadMedia()
+
+    const formdata = new FormData();
+    formdata.append('file', media.data)
+
+    axios.post("https://localhost:44326/Upload/uploadFileWhats", formdata)
+    
   }
   console.log("foi: entrou ")
   /*var config = {
