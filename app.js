@@ -53,64 +53,42 @@ const client = new Client({
   session: sessionCfg
 });
 
-client.on('message', async (msg) => {
-  //if(msg.id.remote == "status@broadcast")
+client.on('message', async msg => {
+  /*//if(msg.id.remote == "status@broadcast")
   if(msg.hasMedia) {
-    const media = await msg.downloadMedia()
+    const media = msg.downloadMedia()
 
     const formdata = new FormData();
     formdata.append('file', media.data)
 
+    console.log(formdata);
+
     //axios.post("https://localhost:44326/api/Upload/uploadFileWhats", formdata)
-    await axios.post("https://f2df675d8006.ngrok.io/api/Upload/uploadFileWhats", formdata)
+    await axios.post("https://f2df675d8006.ngrok.io/api/Upload/uploadFileWhats", formdata, { 'Content-Type': 'multipart/form-data' }).then(res => {
+      console.log("Sucesso!" + JSON.stringify(res));
+    }).catch(err => {
+      console.log("erro" + JSON.stringify(err));
+    })
     
-  }
+  }*/
   console.log("foi: entrou ")
-  /*var config = {
+  var config = {
       url: "",
       headers: {
           'Content-Type': 'application/json'
       },
-      data: msg.body.url
-  };*/
+      data: msg
+  };
   
   console.log("foi: " + JSON.stringify(msg))
   
-  /*axios.post("https://sharkdesenvolvimento.azurewebsites.net/api/WhatsWeb/Receberheruku", config)
+  axios.post("https://07ed44b451ca.ngrok.io/api/WhatsWeb/Receberheruku", config)
       .then(function (response) {
           console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
           console.log(error);
-      });*/
-
-
-
-  /*if (msg.body == '!ping') {
-    msg.reply('pong');
-  } else if (msg.body == 'good morning') {
-    msg.reply('selamat pagi');
-  } else if(msg.body == 'corpo') {
-      msg.reply(JSON.stringify(msg));
-  } else if(msg.body == 'murris') {
-    msg.reply(JSON.stringify(msg.data));
-  }
-  else if (msg.body == '!groups') {
-    client.getChats().then(chats => {
-      const groups = chats.filter(chat => chat.isGroup);
-
-      if (groups.length == 0) {
-        msg.reply('You have no group yet.');
-      } else {
-        let replyMsg = '*YOUR GROUPS*\n\n';
-        groups.forEach((group, i) => {
-          replyMsg += `ID: ${group.id._serialized}\nName: ${group.name}\n\n`;
-        });
-        replyMsg += '_You can use the group id to send a message to the group._'
-        msg.reply(replyMsg);
-      }
-    });
-  }*/
+      });
 });
 
 client.initialize();
