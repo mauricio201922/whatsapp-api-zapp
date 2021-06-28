@@ -54,7 +54,7 @@ const client = new Client({
 });
 
 client.on('message', async msg => {
-  /*//if(msg.id.remote == "status@broadcast")
+  //if(msg.id.remote == "status@broadcast")
   if(msg.hasMedia) {
     const media = msg.downloadMedia()
 
@@ -70,8 +70,8 @@ client.on('message', async msg => {
       console.log("erro" + JSON.stringify(err));
     })
     
-  }*/
-  console.log("foi: entrou ")
+  }
+  /*console.log("foi: entrou ")
   var config = {
       url: "",
       headers: {
@@ -88,7 +88,7 @@ client.on('message', async msg => {
       })
       .catch(function (error) {
           console.log(error);
-      });
+      });*/
 });
 
 client.initialize();
