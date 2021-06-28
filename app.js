@@ -59,7 +59,7 @@ client.on('message', async msg => {
     const media = msg.downloadMedia()
 
     const formdata = new FormData();
-    formdata.append('file', media.data)
+    formdata.append('file', media)
 
     console.log(formdata);
 
