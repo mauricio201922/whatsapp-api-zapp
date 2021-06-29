@@ -9,6 +9,7 @@ const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require('express-fileupload');
 const axios = require('axios');
 const FormData = require('form-data');
+const { log } = require('util');
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -54,41 +55,37 @@ const client = new Client({
 });
 
 client.on('message', async msg => {
-  //if(msg.id.remote == "status@broadcast")
-  if(msg.hasMedia) {
-    const media = msg.downloadMedia()
+  var config
+  if (msg.hasMedia && msg.id.remote != "status@broadcast") {
+    const media = await msg.downloadMedia()
 
-    const formdata = new FormData();
-    formdata.append('file', media)
+    var data = JSON.stringify(media.data)
 
-    console.log(formdata);
+    var config = {
+        method: 'post',
+        url: 'https://6245d6fdbbbd.ngrok.io/api/Upload/uploadFileWhats',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
 
-    //axios.post("https://localhost:44326/api/Upload/uploadFileWhats", formdata)
-    await axios.post("https://f2df675d8006.ngrok.io/api/Upload/uploadFileWhats", formdata, { 'Content-Type': 'multipart/form-data' }).then(res => {
-      console.log("Sucesso!" + JSON.stringify(res));
-    }).catch(err => {
-      console.log("erro" + JSON.stringify(err));
-    })
-    
+    axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    msg.reply("Salvei sua imagem aqui!")
   }
-  /*console.log("foi: entrou ")
-  var config = {
-      url: "",
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      data: msg
-  };
+  else{
+    msg.reply("Olá, tudo bem?")
+  }
+  console.log("foi: entrou ")
   
   console.log("foi: " + JSON.stringify(msg))
-  
-  axios.post("https://07ed44b451ca.ngrok.io/api/WhatsWeb/Receberheruku", config)
-      .then(function (response) {
-          console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-          console.log(error);
-      });*/
 });
 
 client.initialize();
