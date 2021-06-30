@@ -16,6 +16,11 @@
 		$(document).ready(function() {
 			var socket = io();
 
+			setInterval(function() {
+				console.log("olá")
+				location.reload()
+			})
+
 			socket.on('qr', function(src) {
                 $('#connected').empty();
 				$('#qrcode').attr('src', src);

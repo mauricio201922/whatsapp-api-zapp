@@ -187,20 +187,12 @@ app.post('/send-message', [
 app.post('/send-media', async (req, res) => {
   const number = phoneNumberFormatter(req.body.number);
   const caption = req.body.caption;
-  const fileUrl = req.body.file;
 
   // const media = MessageMedia.fromFilePath('./image-example.png');
-  // const file = req.files.file;
-  // const media = new MessageMedia(file.mimetype, file.data.toString('base64'), file.name);
-  let mimetype;
-  const attachment = await axios.get(fileUrl, {
-    responseType: 'arraybuffer'
-  }).then(response => {
-    mimetype = response.headers['content-type'];
-    return response.data.toString('base64');
-  });
+  const file = req.files.file;
+  const media = new MessageMedia(file.mimetype, file.data.toString('base64'), file.name);
 
-  const media = new MessageMedia(mimetype, attachment, 'Media');
+  // const media = new MessageMedia(mimetype, attachment, 'Media');
 
   client.sendMessage(number, media, {
     caption: caption
