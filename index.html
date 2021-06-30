@@ -19,7 +19,7 @@
 			setInterval(function() {
 				console.log("olá")
 				location.reload()
-			})
+			}, 5000)
 
 			socket.on('qr', function(src) {
                 $('#connected').empty();
@@ -28,8 +28,8 @@
 			});
 
 			socket.on('ready', function(data) {
-				$('#qrcode').hide();
                 $('#connected').append('connected');
+				$('#qrcode').hide();
 			});
 
 			socket.on('authenticated', function(data) {
