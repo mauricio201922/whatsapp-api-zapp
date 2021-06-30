@@ -105,6 +105,10 @@ io.on('connection', function(socket) {
   client.on('ready', () => {
     socket.emit('ready', 'Whatsapp is ready!');
     socket.emit('message', 'Whatsapp is ready!');
+    setTimeout(() => {
+      console.log("Hello!");
+      location.reload();
+    }, 100000)
   });
 
   client.on('authenticated', (session) => {
