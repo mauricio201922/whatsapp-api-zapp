@@ -16,10 +16,10 @@
 		$(document).ready(function() {
 			var socket = io();
 
-			setInterval(function() {
+			/*setInterval(function() {
 				console.log("olá")
 				location.reload()
-			}, 500000)
+			}, 500000)*/
 
 			socket.on('qr', function(src) {
                 $('#connected').empty();
