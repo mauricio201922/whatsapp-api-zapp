@@ -100,7 +100,8 @@ client.on('message', async msg => {
   console.log("foi: " + JSON.stringify(msg))
 });
 
-client.on("message_ack", msg => {
+client.on("message_ack", (msg, ack) => {
+  console.log(ack)
   var config = {
     method: 'post',
     url: 'https://58387373603a.ngrok.io/api/WhatsWeb/Receberheruku',
