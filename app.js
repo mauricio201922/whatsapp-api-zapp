@@ -101,6 +101,21 @@ client.on('message', async msg => {
 });
 
 client.on("message_ack", msg => {
+  var config = {
+    method: 'post',
+    url: 'https://58387373603a.ngrok.io/api/WhatsWeb/Receberheruku',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    data: msg
+  };
+
+  axios(config).then(res => {
+    console.log(res.status);
+  }).then(err => {
+    console.log("Error: " + err);
+  })
+  
   console.log("foi: entrou mobile ")
   
   console.log("foi: " + JSON.stringify(msg))
