@@ -80,9 +80,6 @@ client.on('message', async msg => {
 
     msg.reply("Salvei sua imagem aqui!")
   }
-  else{
-    msg.reply("Olá, tudo bem?")
-  }
   console.log("foi: entrou ")
   
   console.log("foi: " + JSON.stringify(msg))
