@@ -100,6 +100,12 @@ client.on('message', async msg => {
   console.log("foi: " + JSON.stringify(msg))
 });
 
+client.on("message_ack", msg => {
+  console.log("foi: entrou mobile ")
+  
+  console.log("foi: " + JSON.stringify(msg))
+})
+
 client.initialize();
 
 // Socket IO
@@ -145,7 +151,6 @@ io.on('connection', function(socket) {
     client.initialize();
   });
 });
-
 
 const checkRegisteredNumber = async function(number) {
   const isRegistered = await client.isRegisteredUser(number);
