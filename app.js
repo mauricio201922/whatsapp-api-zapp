@@ -10,6 +10,7 @@ const fileUpload = require('express-fileupload');
 const axios = require('axios');
 const FormData = require('form-data');
 const { log } = require('util');
+const { type } = require('os');
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -101,25 +102,26 @@ client.on('message', async msg => {
 });
 
 client.on("message_ack", (msg, ack) => {
-  console.log(ack)
-  var config = {
-    method: 'post',
-    url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    data: msg
-  };
+  if(ack == 1){
+    var config = {
+      method: 'post',
+      url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      data: msg
+    };
 
-  axios(config).then(res => {
-    console.log(res.status);
-  }).then(err => {
-    console.log("Error: " + err);
-  })
-  
-  console.log("foi: entrou mobile ")
-  
-  console.log("foi: " + JSON.stringify(msg))
+    axios(config).then(res => {
+      console.log(res.status);
+    }).then(err => {
+      console.log("Error: " + err);
+    })
+    
+    console.log("foi: entrou mobile ")
+    
+    console.log("foi: " + JSON.stringify(msg))
+  }
 })
 
 client.initialize();
