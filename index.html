@@ -8,6 +8,7 @@
 	<div id="app">
 		<img src="" alt="QR Code" id="qrcode">
         <h2 id="connected"></h2>
+		<h2 id="load"></h2>
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
@@ -28,12 +29,15 @@
 			});
 
 			socket.on('ready', function(data) {
-                $('#connected').append('connected');
+				$('#load').empty();
+                $('#connected').append('conectado');
 				$('#qrcode').hide();
 			});
 
 			socket.on('authenticated', function(data) {
+				$('#load').append('Aguarde');				
 				$('#qrcode').hide();
+				
 			});
 		});
 	</script>
