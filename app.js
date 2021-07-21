@@ -81,31 +81,33 @@ client.on('message', async msg => {
 
     msg.reply("Salvei sua imagem aqui!")
   }
-  var config = {
-    method: 'post',
-    url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    data: msg
-  };
+  if(msg.id.remote != "status@broadcast"){
+    var config = {
+      method: 'post',
+      url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      data: msg
+    };
 
-  axios(config).then(res => {
-    console.log(res.status);
-  }).then(err => {
-    console.log("Error: " + err);
-  })
+    axios(config).then(res => {
+      console.log(res.status);
+    }).then(err => {
+      console.log("Error: " + err);
+    })
 
-  console.log("foi: entrou ")
-  
-  console.log("foi: " + JSON.stringify(msg))
+    console.log("foi: entrou ")
+    
+    console.log("foi: " + JSON.stringify(msg))
+  }
 });
 
 client.on("message_ack", (msg, ack) => {
   if(ack == 1){
     var config = {
       method: 'post',
-      url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
+      url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/SincronizaWW',
       headers: {
           'Content-Type': 'application/json'
       },
