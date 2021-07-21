@@ -82,7 +82,7 @@ client.on('message', async msg => {
   }
   var config = {
     method: 'post',
-    url: 'https://58387373603a.ngrok.io/api/WhatsWeb/Receberheruku',
+    url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
     headers: {
         'Content-Type': 'application/json'
     },
@@ -104,7 +104,7 @@ client.on("message_ack", (msg, ack) => {
   console.log(ack)
   var config = {
     method: 'post',
-    url: 'https://58387373603a.ngrok.io/api/WhatsWeb/Receberheruku',
+    url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/Receberheruku',
     headers: {
         'Content-Type': 'application/json'
     },
