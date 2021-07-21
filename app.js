@@ -104,7 +104,7 @@ client.on('message', async msg => {
 });
 
 client.on("message_ack", (msg, ack) => {
-  if(ack == 1){
+  if(ack == 2){
     var config = {
       method: 'post',
       url: 'https://8d16aeebe94f.ngrok.io/api/WhatsWeb/SincronizaWW',
