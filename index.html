@@ -45,11 +45,6 @@
 				$('#load').attr('class', 'spinner-border text-primary');		
 				$('#qrcode').hide();
 			});
-
-			socket.on('disconnected', (err) => {
-				$('#load').attr('class', 'spinner-border text-primary');
-				console.log('desconectado: ' + err);
-			})
 		});
 	</script>
 </body>
