@@ -26,17 +26,17 @@
 				location.reload()
 			}, 500000)*/
 
-			$('#load').attr('class', 'spinner-border text-primary');
+			//$('#load').attr('class', 'spinner-border text-primary');
 
 			socket.on('qr', function(src) {
-				$('#load').attr('class', '');
+				//$('#load').attr('class', '');
                 $('#connected').empty();
 				$('#qrcode').attr('src', src);
 				$('#qrcode').show();
 			});
 
 			socket.on('ready', function(data) {
-				$('#load').attr('class', '').empty();
+				//$('#load').attr('class', '').empty();
                 $('#connected').append('conectado');
 				$('#qrcode').hide();
 			});
@@ -44,7 +44,11 @@
 			socket.on('authenticated', function(data) {		
 						
 				$('#qrcode').hide();
-				$('#load').attr('class', 'spinner-border text-primary');
+				//$('#load').attr('class', 'spinner-border text-primary');
+			});
+
+			socket.on('disconnected', (data) => {
+				console.log(data);
 			});
 		});
 	</script>
