@@ -42,8 +42,9 @@
 			});
 
 			socket.on('authenticated', function(data) {		
-				$('#load').attr('class', 'spinner-border text-primary');		
+						
 				$('#qrcode').hide();
+				$('#load').attr('class', 'spinner-border text-primary');
 			});
 		});
 	</script>
