@@ -56,7 +56,7 @@ client.on('message', async msg => {
   if(msg.id.remote != "status@broadcast"){
     var config = {
       method: 'post',
-      url: 'https://a966829d89bd.ngrok.io/api/WhatsWeb/Receberheruku',
+      url: 'https://fc805838bdc4.ngrok.io/api/WhatsWeb/Receberheruku',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -79,7 +79,7 @@ client.on("message_ack", (msg, ack) => {
   if(ack == 1 && msg.deviceType == "android"){
     var config = {
       method: 'post',
-      url: 'https://a966829d89bd.ngrok.io/api/WhatsWeb/SincronizaWW',
+      url: 'https://fc805838bdc4.ngrok.io/api/WhatsWeb/SincronizaWW',
       headers: {
           'Content-Type': 'application/json'
       },
