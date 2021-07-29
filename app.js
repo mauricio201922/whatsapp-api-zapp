@@ -56,7 +56,7 @@ client.on('message', async msg => {
   if(msg.id.remote != "status@broadcast"){
     var config = {
       method: 'post',
-      url: 'https://fc805838bdc4.ngrok.io/api/WhatsWeb/Receberheruku',
+      url: 'https://a0c47a0e1a04.ngrok.io/api/WhatsWeb/Receberheruku',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -79,7 +79,7 @@ client.on("message_ack", (msg, ack) => {
   if(ack == 1 && msg.deviceType == "android"){
     var config = {
       method: 'post',
-      url: 'https://fc805838bdc4.ngrok.io/api/WhatsWeb/SincronizaWW',
+      url: 'https://a0c47a0e1a04.ngrok.io/api/WhatsWeb/SincronizaWW',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -185,6 +185,7 @@ app.post('/send-message', [
       status: true,
       response: response
     });
+    console.log(response.id.remote.server)
   }).catch(err => {
     res.status(500).json({
       status: false,
@@ -239,12 +240,6 @@ const findGroupByName = async function(name) {
 // Send message to group
 // You can use chatID or group name, yea!
 app.post('/send-group-message', [
-  body('id').custom((value, { req }) => {
-    if (!value && !req.body.name) {
-      throw new Error('Invalid value, you can use `id` or `name`');
-    }
-    return true;
-  }),
   body('message').notEmpty(),
 ], async (req, res) => {
   const errors = validationResult(req).formatWith(({
@@ -260,9 +255,13 @@ app.post('/send-group-message', [
     });
   }
 
-  let chatId = req.body.id;
+  //console.log("req: " + JSON.stringify(req) + " res: " + JSON.stringify(res));
+
+  let chatId = null;
   const groupName = req.body.name;
   const message = req.body.message;
+
+  console.log(groupName);
 
   // Find the group by name
   if (!chatId) {
@@ -276,11 +275,14 @@ app.post('/send-group-message', [
     chatId = group.id._serialized;
   }
 
+  console.log(chatId);
+
   client.sendMessage(chatId, message).then(response => {
     res.status(200).json({
       status: true,
       response: response
     });
+    console.log(response.id.remote.server);
   }).catch(err => {
     res.status(500).json({
       status: false,
@@ -288,6 +290,27 @@ app.post('/send-group-message', [
     });
   });
 });
+
+app.post("/teste-shark", [
+  body('number').notEmpty(),
+  body('message').notEmpty()
+], async (req, res) => {
+  const number = req.body.chatId;
+  const message = req.body.message;
+  
+  client.sendMessage(number, message).then(res => {
+    res.status(200).json({
+      status: true,
+      res: res
+    });
+    console.log(res);
+  }).catch(err => {
+    res.status(500).json({
+      status: true,
+      res: err
+    });
+  })
+})
 
 // Clearing message on spesific chat
 app.post('/clear-message', [
