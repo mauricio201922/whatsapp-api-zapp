@@ -53,10 +53,31 @@ const client = new Client({
 });
 
 client.on('message', async msg => {
-  if(msg.id.remote != "status@broadcast"){
+  if(msg.hasMedia){
+
+    const data = await msg.downloadMedia();
+
     var config = {
       method: 'post',
-      url: 'https://0de891c16574.ngrok.io/api/WhatsWeb/Receberheruku',
+      url: 'https://0de891c16574.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    }
+
+    console.log(data);
+
+    axios(config).then(res => {
+      console.log("response: " + res);
+    }).catch(err => {
+      console.log("error: " + err);
+    })
+  }
+  else if(msg.id.remote != "status@broadcast"){
+    var config = {
+      method: 'post',
+      url: 'https://0de891c16574.ngrok.io/api/WhatsWeb/ReceberMensagemWhats',
       headers: {
           'Content-Type': 'application/json'
       },
