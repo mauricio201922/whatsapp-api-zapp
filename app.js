@@ -61,7 +61,7 @@ client.on('message', async msg => {
       method: 'post',
       url: 'https://f3260076eb92.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       },
       data: data
     }
