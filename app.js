@@ -59,7 +59,7 @@ client.on('message', async msg => {
 
     var config = {
       method: 'post',
-      url: 'https://f3260076eb92.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
+      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -77,7 +77,7 @@ client.on('message', async msg => {
   else if(msg.id.remote != "status@broadcast"){
     var config = {
       method: 'post',
-      url: 'https://f3260076eb92.ngrok.io/api/WhatsWeb/ReceberMensagemWhats',
+      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/ReceberMensagemWhats',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -100,7 +100,7 @@ client.on("message_ack", (msg, ack) => {
   if(ack == 1 && msg.deviceType == "android"){
     var config = {
       method: 'post',
-      url: 'https://0de891c16574.ngrok.io/api/WhatsWeb/SincronizaWW',
+      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/SincronizaWW',
       headers: {
           'Content-Type': 'application/json'
       },
