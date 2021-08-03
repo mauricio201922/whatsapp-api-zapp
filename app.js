@@ -312,27 +312,6 @@ app.post('/send-group-message', [
   });
 });
 
-app.post("/teste-shark", [
-  body('number').notEmpty(),
-  body('message').notEmpty()
-], async (req, res) => {
-  const number = req.body.chatId;
-  const message = req.body.message;
-  
-  client.sendMessage(number, message).then(res => {
-    res.status(200).json({
-      status: true,
-      res: res
-    });
-    console.log(res);
-  }).catch(err => {
-    res.status(500).json({
-      status: true,
-      res: err
-    });
-  })
-})
-
 // Clearing message on spesific chat
 app.post('/clear-message', [
   body('number').notEmpty(),
