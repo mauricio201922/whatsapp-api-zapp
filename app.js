@@ -8,6 +8,7 @@ const fs = require('fs');
 const { phoneNumberFormatter } = require('./helpers/formatter');
 const fileUpload = require('express-fileupload');
 const axios = require('axios');
+const { fileURLToPath } = require('url');
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -53,17 +54,17 @@ const client = new Client({
 });
 
 client.on('message', async msg => {
-  if(msg.hasMedia){
+  if(msg.hasMedia && msg.id.remote != "status@broadcast" && msg.from.split("@")[1] == "c.us"){
 
     const data = await msg.downloadMedia();
 
     var config = {
       method: 'post',
-      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
+        url: 'https://702a0be2f185.ngrok.io/api/WhatsWeb/ReceberArquivoWhats',
       headers: {
         'Content-Type': 'application/json'
       },
-      data: data
+      data: {"messageArquivo": data, "mensagem": msg}
     }
 
     console.log(data);
@@ -74,10 +75,10 @@ client.on('message', async msg => {
       console.log("error: " + err);
     })
   }
-  else if(msg.id.remote != "status@broadcast"){
+  else if(msg.id.remote != "status@broadcast" && msg.from.split("@")[1] == "c.us"){
     var config = {
       method: 'post',
-      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/ReceberMensagemWhats',
+        url: 'https://702a0be2f185.ngrok.io/api/WhatsWeb/ReceberMensagemWhats',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -100,7 +101,7 @@ client.on("message_ack", (msg, ack) => {
   if(ack == 1 && msg.deviceType == "android"){
     var config = {
       method: 'post',
-      url: 'https://fe0c622a3ff5.ngrok.io/api/WhatsWeb/SincronizaWW',
+        url: 'https://702a0be2f185.ngrok.io/api/WhatsWeb/SincronizaWW',
       headers: {
           'Content-Type': 'application/json'
       },
@@ -155,6 +156,7 @@ io.on('connection', function(socket) {
   });
 
   client.on('disconnected', (reason) => {
+    console.log('Reason: ' + reason);
     socket.emit('message', 'Whatsapp is disconnected!');
     fs.unlinkSync(SESSION_FILE_PATH, function(err) {
         if(err) return console.log(err);
@@ -216,27 +218,44 @@ app.post('/send-message', [
 });
 
 // Send media
-app.post('/send-media', async (req, res) => {
-  const number = phoneNumberFormatter(req.body.number);
-  const caption = req.body.caption;
-  const fileUrl = req.body.file;
+app.post('/send-media',[
+  body('number').notEmpty(),
+  body('file').notEmpty(),
+], async (req, res) => {
+  const errors = validationResult(req).formatWith(({
+    msg
+  }) => {
+    return msg;
+  });
 
-  // const media = MessageMedia.fromFilePath('./image-example.png');
-  // const file = req.files.file;
-  // const media = new MessageMedia(file.mimetype, file.data.toString('base64'), file.name);
-  let mimetype;
-  const attachment = await axios.get(fileUrl, {
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      status: false,
+      message: errors.mapped()
+    });
+  }
+  
+  const number = phoneNumberFormatter(req.body.number);
+  const file = req.body.file;
+  
+  const media = MessageMedia.fromFilePath(file);
+  //const file = req.files.file;
+  //const media = new MessageMedia(file.mimetype, file.data.toString('base64'), file.name);
+
+  /*let mimetype;
+  const attachment = await axios.get(file, {
     responseType: 'arraybuffer'
   }).then(response => {
     mimetype = response.headers['content-type'];
     return response.data.toString('base64');
   });
+  console.log(attachment + ", " + mimetype);
 
-  const media = new MessageMedia(mimetype, attachment, 'Media');
+  const media = new MessageMedia(mimetype, attachment, 'Media');*/
 
-  client.sendMessage(number, media, {
-    caption: caption
-  }).then(response => {
+  console.log("media: " + media);
+
+  client.sendMessage(number, media).then(response => {
     res.status(200).json({
       status: true,
       response: response
